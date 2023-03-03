@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Class.belongsToMany(models.User, {
+        as: 'students',
+        through: models.ClassList,
+        foreignKey: 'class_id'
+      })
+      Class.hasMany(models.Comments, { as: 'comments', foreignKey: 'class_id' })
       // define association here
     }
   }
@@ -15,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       subject: DataTypes.STRING,
-      description: DataTypes.STRING,
+      description: DataTypes.TEXT,
       semester: DataTypes.STRING,
       teacher: DataTypes.STRING,
       credits: DataTypes.INTEGER
