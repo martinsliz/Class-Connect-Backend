@@ -13,8 +13,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   ClassList.init(
     {
-      userId: DataTypes.STRING,
-      classId: DataTypes.STRING
+      userId: {
+        type: DataTypes.STRING,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      classId: {
+        type: DataTypes.STRING,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      }
     },
     {
       sequelize,
