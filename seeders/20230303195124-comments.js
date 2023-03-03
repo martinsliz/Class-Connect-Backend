@@ -1,25 +1,28 @@
-'use strict';
+'use strict'
+const { User, Class, sequelize } = require('../models')
+const { Op } = require('sequelize')
+const falso = require('@ngneat/falso')
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  up: async (queryInterface, Sequelize) => {
+    const comments = await Promise.all(
+      [...Array(1000)].map(async () => {
+        let user = await User.findOne({ order: sequelize.random(), raw: true })
+        let lecture = await Class.findOne({
+          order: sequelize.random(),
+          raw: true
+        })
+        return {
+          content: falso.randParagraph(),
+          userId: user.id,
+          classId: lecture.id
+        }
+      })
+    )
+    return queryInterface.bulkInsert('comments', comments)
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('comments')
   }
-};
+}
