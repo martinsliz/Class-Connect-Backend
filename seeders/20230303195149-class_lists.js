@@ -6,9 +6,7 @@ module.exports = {
     const classes = await Class.findAll({ raw: true })
     const list = classes.map((a) => ({
       userId: users[Math.floor(Math.random() * users.length)].id,
-      classId: a.id,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      classId: a.id
     }))
     await queryInterface.bulkInsert('class_lists', list)
   },

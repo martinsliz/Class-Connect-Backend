@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       Class.belongsToMany(models.User, {
         as: 'students',
         through: models.ClassList,
-        foreignKey: 'class_id'
+        foreignKey: 'classId'
       })
-      Class.hasMany(models.Comments, { as: 'comments', foreignKey: 'class_id' })
+      Class.hasMany(models.Comment, { as: 'comments', foreignKey: 'classId' })
       // define association here
     }
   }
