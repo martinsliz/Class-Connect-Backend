@@ -1,15 +1,21 @@
 {
   "development": {
+    "username": "ttq",
+    "password": "1234",
     "database": "class_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
+    "username": "ttq",
+    "password": "1234",
     "database": "class_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
+    "username": "ttq",
+    "password": "1234",
     "database": "class_production",
     "host": "127.0.0.1",
     "dialect": "postgres"

@@ -57,7 +57,7 @@ const getRandomSemester = () => {
   return semester
 }
 
-const classes = new Array(25)
+const classes = new Array(5)
 
 for (let i = 0; i < classes.length; i++) {
   let classInfo = getRandomClassName(subjects, classLevels)
@@ -70,12 +70,4 @@ for (let i = 0; i < classes.length; i++) {
   classes[i] = { name, subject, description, semester, teacher, credits }
 }
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('classes', classes)
-  },
-
-  down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('classes')
-  }
-}
+console.log(classes)
