@@ -1,25 +1,19 @@
-'use strict';
-
-/** @type {import('sequelize-cli').Migration} */
+'use strict'
+const { User, Class } = require('../models')
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  up: async (queryInterface, Sequelize) => {
+    const users = await User.findAll({ raw: true })
+    const classes = await Class.findAll({ raw: true })
+    const list = classes.map((a) => ({
+      userId: users[Math.floor(Math.random() * users.length)].id,
+      classId: a.id,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }))
+    await queryInterface.bulkInsert('class_lists', list)
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('class_lists')
   }
-};
+}
