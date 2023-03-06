@@ -67,7 +67,18 @@ for (let i = 0; i < classes.length; i++) {
   let semester = getRandomSemester()
   let teacher = falso.randFullName()
   let credits = falso.randNumber({ min: 1, max: 4 })
-  classes[i] = { name, subject, description, semester, teacher, credits }
+  let createdAt = new Date()
+  let updatedAt = new Date()
+  classes[i] = {
+    name,
+    subject,
+    description,
+    semester,
+    teacher,
+    credits,
+    createdAt,
+    updatedAt
+  }
 }
 
 module.exports = {

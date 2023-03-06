@@ -13,9 +13,11 @@ module.exports = {
           raw: true
         })
         return {
-          content: falso.randParagraph(),
           userId: user.id,
-          classId: lecture.id
+          classId: lecture.id,
+          content: falso.randParagraph(),
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       })
     )
