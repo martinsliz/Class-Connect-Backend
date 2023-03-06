@@ -1,13 +1,22 @@
 'use strict'
-const { User, Class } = require('../models')
+const { User, Class, sequelize } = require('../models')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const users = await User.findAll({ raw: true })
-    const classes = await Class.findAll({ raw: true })
-    const list = classes.map((a) => ({
-      userId: users[Math.floor(Math.random() * users.length)].id,
-      classId: a.id
-    }))
+    const list = await Promise.all(
+      [...Array(1000)].map(async () => {
+        let user = await User.findOne({ order: sequelize.random(), raw: true })
+        let lecture = await Class.findOne({
+          order: sequelize.random(),
+          raw: true
+        })
+        return {
+          userId: user.id,
+          classId: lecture.id,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      })
+    )
     await queryInterface.bulkInsert('class_lists', list)
   },
 
