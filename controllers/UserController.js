@@ -124,14 +124,14 @@ const CheckSession = async (req, res) => {
 //   }
 // }
 
-// const GetUserById = async (req, res) => {
-//   try {
-//     const findUser = await User.findByPk(req.params.user_id)
-//     res.send(findUser)
-//   } catch (error) {
-//     throw error
-//   }
-// }
+const GetUserById = async (req, res) => {
+  try {
+    const findUser = await User.findByPk(req.params.user_id)
+    res.send(findUser)
+  } catch (error) {
+    throw error
+  }
+}
 
 // const UpdateUser = async (req, res) => {
 //   try {
@@ -146,24 +146,24 @@ const CheckSession = async (req, res) => {
 //   }
 // }
 
-// const DeleteUser = async (req, res) => {
-//   try {
-//     let userId = parseInt(req.params.user_id)
-//     await User.destroy({ where: { id: userId } })
-//     res.send({ message: `Deleted user with an ID of ${userId}!` })
-//   } catch (error) {
-//     throw error
-//   }
-// }
+const DeleteUser = async (req, res) => {
+  try {
+    let userId = parseInt(req.params.user_id)
+    await User.destroy({ where: { id: userId } })
+    res.send({ message: `Deleted user with an ID of ${userId}!` })
+  } catch (error) {
+    throw error
+  }
+}
 
 module.exports = {
   Register,
   Login,
+  GetUserById,
   UpdatePassword,
-  CheckSession
+  CheckSession,
   // CreateUser,
   // GetUsers,
-  // GetUserById,
   // UpdateUser,
-  // DeleteUser
+  DeleteUser
 }
