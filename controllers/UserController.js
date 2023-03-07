@@ -87,6 +87,19 @@ const UpdatePassword = async (req, res) => {
   }
 }
 
+const UpdateEmail = async (req, res) => {
+  try {
+    let userId = parseInt(req.params.user_id)
+    let updateEmail = await User.update(req.body, {
+      where: { id: userId },
+      returning: true
+    })
+    res.send(updateEmail)
+  } catch (error) {
+    throw error
+  }
+}
+
 const CheckSession = async (req, res) => {
   const { payload } = res.locals
   res.send(payload)
@@ -162,6 +175,7 @@ module.exports = {
   GetUserById,
   UpdatePassword,
   CheckSession,
+  UpdateEmail,
   // CreateUser,
   // GetUsers,
   // UpdateUser,

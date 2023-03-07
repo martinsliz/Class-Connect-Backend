@@ -12,11 +12,19 @@ router.delete(
   controller.DeleteUser
 )
 router.put(
-  '/update/:user_id',
+  '/updatePassword/:user_id',
   middleware.stripToken,
   middleware.verifyToken,
   controller.UpdatePassword
 )
+
+router.put(
+  '/updateEmail/:user_id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.UpdateEmail
+)
+
 router.get(
   '/session',
   middleware.stripToken,
