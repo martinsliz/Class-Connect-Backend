@@ -3,7 +3,6 @@ const controller = require('../controllers/ClassController')
 const middleware = require('../middleware')
 
 router.get('/', controller.GetClasses)
-router.get('/:class_subject', controller.getClassBySubject)
 router.post(
   '/',
   middleware.stripToken,
@@ -16,6 +15,7 @@ router.get(
   middleware.verifyToken,
   controller.GetClassById
 )
+router.get('/subject/:class_subject', controller.getClassBySubject)
 router.put(
   '/:class_id',
   middleware.stripToken,

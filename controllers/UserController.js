@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Class } = require('../models')
 const middleware = require('../middleware')
 
 const Register = async (req, res) => {
@@ -104,60 +104,25 @@ const CheckSession = async (req, res) => {
   const { payload } = res.locals
   res.send(payload)
 }
-// const CreateUser = async (req, res) => {
-//   try {
-//     let userBody = { ...req.body }
-//     let user = await User.create(userBody)
-//     res.send(user)
-//   } catch (error) {
-//     throw error
-//   }
-// }
-
-// const GetUsers = async (req, res) => {
-//   try {
-//     const users = await User.findAll({
-//       include: [
-//         {
-//           model: Class,
-//           as: 'classes',
-//           through: { attributes: [] },
-//           attributes: ['name']
-//         },
-//         {
-//           model: Comment,
-//           as: 'commented',
-//           attributes: ['content']
-//         }
-//       ]
-//     })
-//     res.send(users)
-//   } catch (error) {
-//     throw error
-//   }
-// }
 
 const GetUserById = async (req, res) => {
   try {
-    const findUser = await User.findByPk(req.params.user_id)
-    res.send(findUser)
+    const userId = parseInt(req.params.user_id)
+    const user = await User.findByPk(userId, {
+      include: [
+        {
+          model: Class,
+          as: 'classes',
+          through: { attributes: [] },
+          attributes: ['name', 'credits']
+        }
+      ]
+    })
+    res.send(user)
   } catch (error) {
     throw error
   }
 }
-
-// const UpdateUser = async (req, res) => {
-//   try {
-//     let userId = parseInt(req.params.user_id)
-//     let userUpdate = await User.update(req.body, {
-//       where: { id: userId },
-//       returning: true
-//     })
-//     res.send(userUpdate)
-//   } catch (error) {
-//     throw error
-//   }
-// }
 
 const DeleteUser = async (req, res) => {
   try {
@@ -176,8 +141,5 @@ module.exports = {
   UpdatePassword,
   CheckSession,
   UpdateEmail,
-  // CreateUser,
-  // GetUsers,
-  // UpdateUser,
   DeleteUser
 }
