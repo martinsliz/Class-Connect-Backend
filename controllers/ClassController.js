@@ -1,4 +1,6 @@
 const { Class, User, Comment } = require('../models')
+const sequelize = require('sequelize')
+const { Op } = require('sequelize')
 
 const GetClasses = async (req, res) => {
   try {
@@ -51,17 +53,18 @@ const GetClassById = async (req, res) => {
 const getClassBySubject = async (req, res) => {
   try {
     const classSubject = req.params.class_subject
-    const lecture = await Class.find({
-      subject: { $regex: `${classSubject}`, $options: 'i' }
+    const lecture = await Class.findAll({
+      where: {
+        subject: sequelize.where(
+          sequelize.fn('LOWER', sequelize.col('subject')),
+          'LIKE',
+          classSubject.toLowerCase() + '%'
+        )
+      }
     })
-    if (lecture) {
-      return res.status(200).json({ lecture })
-    }
-    return res
-      .status(404)
-      .send('Classes with the specified Subject does not exists')
+    res.send(lecture)
   } catch (error) {
-    return res.status(500).send(error.message)
+    throw error
   }
 }
 
@@ -91,8 +94,8 @@ const DeleteClass = async (req, res) => {
   try {
     const classId = parseInt(req.params.class_id)
     await Class.destroy({ where: { id: classId } })
-    res.send({ msg: `Class with id of ${classId} was deleted` })
-    // res.send({ msg: 'Class Deleted', payload: classId, status: 'Ok' })
+    // res.send({ msg: `Class with id of ${classId} was deleted` })
+    res.send({ msg: 'Class Deleted', payload: classId, status: 'Ok' })
   } catch (error) {
     throw error
   }
