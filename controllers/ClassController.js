@@ -1,4 +1,6 @@
 const { Class, User, Comment } = require('../models')
+const sequelize = require('sequelize')
+const { Op } = require('sequelize')
 
 const GetClasses = async (req, res) => {
   try {
@@ -48,6 +50,24 @@ const GetClassById = async (req, res) => {
   }
 }
 
+const getClassBySubject = async (req, res) => {
+  try {
+    const classSubject = req.params.class_subject
+    const lecture = await Class.findAll({
+      where: {
+        subject: sequelize.where(
+          sequelize.fn('LOWER', sequelize.col('subject')),
+          'LIKE',
+          classSubject.toLowerCase() + '%'
+        )
+      }
+    })
+    res.send(lecture)
+  } catch (error) {
+    throw error
+  }
+}
+
 const CreateClass = async (req, res) => {
   try {
     let lecture = await Class.create({ ...req.body })
@@ -74,8 +94,8 @@ const DeleteClass = async (req, res) => {
   try {
     const classId = parseInt(req.params.class_id)
     await Class.destroy({ where: { id: classId } })
-    res.send({ msg: `Class with id of ${classId} was deleted` })
-    // res.send({ msg: 'Class Deleted', payload: classId, status: 'Ok' })
+    // res.send({ msg: `Class with id of ${classId} was deleted` })
+    res.send({ msg: 'Class Deleted', payload: classId, status: 'Ok' })
   } catch (error) {
     throw error
   }
@@ -84,6 +104,7 @@ const DeleteClass = async (req, res) => {
 module.exports = {
   GetClasses,
   GetClassById,
+  getClassBySubject,
   CreateClass,
   UpdateClass,
   DeleteClass
