@@ -19,10 +19,10 @@ router.put(
 )
 
 router.put(
-  '/updateEmail/:user_id',
+  '/updateUserDetails/:user_id',
   middleware.stripToken,
   middleware.verifyToken,
-  controller.UpdateEmail
+  controller.UpdateUserDetails
 )
 
 router.get(

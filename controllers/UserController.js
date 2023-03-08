@@ -87,14 +87,14 @@ const UpdatePassword = async (req, res) => {
   }
 }
 
-const UpdateEmail = async (req, res) => {
+const UpdateUserDetails = async (req, res) => {
   try {
     let userId = parseInt(req.params.user_id)
-    let updateEmail = await User.update(req.body, {
+    let updateUserDetails = await User.update(req.body, {
       where: { id: userId },
       returning: true
     })
-    res.send(updateEmail)
+    res.send(updateUserDetails)
   } catch (error) {
     throw error
   }
@@ -114,7 +114,7 @@ const GetUserById = async (req, res) => {
           model: Class,
           as: 'classes',
           through: { attributes: [] },
-          attributes: ['name', 'credits']
+          attributes: ['id', 'name', 'credits']
         }
       ]
     })
@@ -140,6 +140,6 @@ module.exports = {
   GetUserById,
   UpdatePassword,
   CheckSession,
-  UpdateEmail,
+  UpdateUserDetails,
   DeleteUser
 }
