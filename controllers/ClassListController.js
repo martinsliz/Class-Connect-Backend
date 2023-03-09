@@ -29,7 +29,6 @@ const CreateClassList = async (req, res) => {
 
 const DeleteClassList = async (req, res) => {
   try {
-    // let classListId = parseInt(req.params.classlist_id)
     let userId = parseInt(req.params.user_id)
     let classId = parseInt(req.params.class_id)
     await ClassList.destroy({ where: { userId: userId, classId: classId } })

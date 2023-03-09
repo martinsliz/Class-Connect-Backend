@@ -94,7 +94,6 @@ const DeleteClass = async (req, res) => {
   try {
     const classId = parseInt(req.params.class_id)
     await Class.destroy({ where: { id: classId } })
-    // res.send({ msg: `Class with id of ${classId} was deleted` })
     res.send({ msg: 'Class Deleted', payload: classId, status: 'Ok' })
   } catch (error) {
     throw error
