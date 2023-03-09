@@ -1,6 +1,5 @@
 const { Comment } = require('../models')
-// const middleware = require('../middleware')
-// GET all comments
+
 const GetComments = async (req, res) => {
   try {
     const comments = await Comment.findAll({ order: [['createdAt', 'DESC']] })
@@ -10,7 +9,6 @@ const GetComments = async (req, res) => {
   }
 }
 
-// GET comment by id
 const GetCommentDetails = async (req, res) => {
   try {
     const comment = await Comment.findByPk(req.params.comment_id)
@@ -20,7 +18,6 @@ const GetCommentDetails = async (req, res) => {
   }
 }
 
-// CREATE comment
 const CreateComment = async (req, res) => {
   try {
     let userId = parseInt(req.params.user_id)
@@ -37,7 +34,6 @@ const CreateComment = async (req, res) => {
   }
 }
 
-// UPDATE comment
 const UpdateComment = async (req, res) => {
   try {
     let commentId = parseInt(req.params.comment_id)
@@ -51,7 +47,6 @@ const UpdateComment = async (req, res) => {
   }
 }
 
-// DELETE comment
 const DeleteComment = async (req, res) => {
   try {
     let commentId = parseInt(req.params.comment_id)
