@@ -40,7 +40,7 @@ const GetClassById = async (req, res) => {
         {
           model: Comment,
           as: 'comments',
-          attributes: ['content']
+          attributes: ['id', 'userId', 'content']
         }
       ]
     })
