@@ -8,7 +8,7 @@ const subjects = [
   'Physical Education',
   'Music',
   'History',
-  'Socail Studies',
+  'Social Studies',
   'Art',
   'Geography',
   'Biology',

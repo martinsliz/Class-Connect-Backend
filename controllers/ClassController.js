@@ -49,7 +49,7 @@ const GetClassById = async (req, res) => {
     throw error
   }
 }
-//commented code
+
 const getClassBySubject = async (req, res) => {
   try {
     const classSubject = req.params.class_subject
